@@ -20,7 +20,7 @@ const contextTypes = {
   moveSharedElement: PropTypes.func.isRequired,
 };
 
-const elements = {};
+export const elements = {};
 // Test if the shred element is destination or source
 const isDestination = props => !!props.sourceId;
 // Destination element has id as a sourceId and source element has an id as an

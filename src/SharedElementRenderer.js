@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { Animated, View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
+import { elements } from './SharedElement';
+
 const childContextTypes = {
   moveSharedElement: PropTypes.func.isRequired,
 };
@@ -16,6 +18,12 @@ class SharedElementRenderer extends PureComponent {
     this.state = {
       config: null,
     };
+
+    // clean cached elements between instances of SharedElementRenderer as it is crashing
+    // when the SharedElement is rendered within a FlatList and the SharedElement was
+    // already animated once, probably due to trying to get the reference of a component
+    // that does not exists anymore
+    Object.keys(elements).forEach(key => delete elements[key]);
   }
   getChildContext() {
     return {
